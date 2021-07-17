@@ -5,6 +5,8 @@ const typeDefs = gql`
     id: ID
     title: String
     description: String
+    url: String
+    date: String
   }
 
   type Query {
@@ -16,6 +18,7 @@ const typeDefs = gql`
   input PostInput {
     title: String
     description: String
+    url: String
   }
 
   type Mutation {
