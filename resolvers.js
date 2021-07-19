@@ -14,7 +14,7 @@ const resolvers = {
   },
   Mutation: {
     createPost: async (parent, args, context, info) => {
-      const { title, description, url } = args.post;
+      const { title, description, url, img } = args.post;
       const month = {
         0: 'Enero',
         1: 'Febrero',
@@ -33,7 +33,7 @@ const resolvers = {
       let date = new Date(Date.now());
       date = `${date.getDate()}-${month[date.getMonth()]}-${date.getFullYear()}`;
 
-      const post = new Post({ title, description, url, date });
+      const post = new Post({ title, description, url, img, date });
       await post.save();
       return post;
     },
@@ -44,7 +44,7 @@ const resolvers = {
     },
     updatePost: async (parent, args, context, info) => {
       const { id } = args;
-      const { title, description } = args.post;
+      const { title, description, url, img } = args.post;
       const updates = {};
 
       if (title !== undefined) {
@@ -52,6 +52,12 @@ const resolvers = {
       }
       if (description !== undefined) {
         updates.description = description;
+      }
+      if (url !== undefined) {
+        updates.url = url;
+      }
+      if (img !== undefined) {
+        updates.img = img;
       }
 
       const post = await Post.findByIdAndUpdate(id, updates, { new: true });

@@ -7,6 +7,7 @@ const typeDefs = gql`
     description: String
     url: String
     date: String
+    img: String
   }
 
   type Query {
@@ -19,6 +20,7 @@ const typeDefs = gql`
     title: String
     description: String
     url: String
+    img: String
   }
 
   type Mutation {
