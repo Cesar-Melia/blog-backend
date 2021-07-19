@@ -5,6 +5,7 @@ const resolvers = require('./resolvers');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+const PORT = process.env.PORT || 3000;
 const DB_URL = process.env.DB_URL;
 
 async function startServer() {
@@ -23,13 +24,14 @@ async function startServer() {
       res.send('Using express apollo server');
     });
 
-    await mongoose.connect(DB_URL, {
+    const db = await mongoose.connect(DB_URL, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });
-    console.log('Mongoose connected...');
+    const { name, host } = db.connection;
+    console.log(`Conectado correctamente a la db ${name} en ${host}`);
 
-    app.listen(3000, () => console.log('Server running on port 3000'));
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   } catch (error) {
     console.log('An error occurred while connecting to the database...');
   }
